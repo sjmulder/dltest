@@ -1,0 +1,29 @@
+.Dd August 22, 2020
+.Dt DLTEST 1
+.Os
+.Sh NAME
+.Nm dltest
+.Nd test for library presence
+.Sh SYNOPSIS
+.Nm dltest
+.Ar library
+.Sh DESCRIPTION
+Attempts to open the given
+.Ar library
+using
+.Xr dlopen 3 .
+If it fails, the message returned from
+.Xr dlerror 3
+is printed to standard error.
+.Pp
+Especially useful on macOS 11 and up
+which doesn't include regular shared library files
+but only a precompiled shared library cache.
+.Sh EXIT STATUS
+Exits 0 on success,
+1 if the library failed to open,
+or 64 on bad usage.
+.Sh SEE ALSO
+.Xr dlopen 3
+.Sh AUTHORS
+.An Sijmen J. Mulder Aq Mt ik@sjmulder.nl
