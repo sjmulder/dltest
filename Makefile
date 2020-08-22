@@ -11,7 +11,7 @@ clean:
 	rm -f dltest
 
 check: all
-	./dltest libm.so libm.dylib >/dev/null 2>&1
+	./dltest libm.so libm.dylib
 	./dltest libm.so libm.dylib 2>/dev/null | grep -q libm
 	./dltest libm.so libm.dylib 2>&1 >/dev/null | grep -q libm
 	./dltest -q libm.so libm.dylib
