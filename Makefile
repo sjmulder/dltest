@@ -3,6 +3,7 @@ PREFIX?=	/usr/local
 MANPREFIX?=	${PREFIX}/man
 
 CFLAGS+=	-Wall
+LDLIBS+=	-ldl
 
 all: dltest
 
