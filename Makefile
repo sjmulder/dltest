@@ -11,9 +11,11 @@ clean:
 	rm -f dltest
 
 check: all
-	./dltest libc.so libc.dylib >/dev/null 2>&1
-	./dltest -q libc.so libc.dylib
-	! ./dltest -aq libc.so libc.dylib
+	./dltest libm.so libm.dylib >/dev/null 2>&1
+	./dltest libm.so libm.dylib 2>/dev/null | grep -q libm
+	./dltest libm.so libm.dylib 2>&1 >/dev/null | grep -q libm
+	./dltest -q libm.so libm.dylib
+	! ./dltest -aq libm.so libm.dylib
 
 install: all
 	install -d ${DESTDIR}${PREFIX}/bin ${DESTDIR}${MANPREFIX}/man1
