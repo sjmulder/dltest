@@ -30,7 +30,7 @@ main(int argc, char **argv)
 	argv += optind;
 
 	if (!argc) {
-		fputs("usage: dltest library [...]", stderr);
+		fputs("usage: dltest library [...]\n", stderr);
 		return 64;
 	}
 
