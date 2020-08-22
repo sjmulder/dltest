@@ -5,24 +5,57 @@
 .Nm dltest
 .Nd test for library presence
 .Sh SYNOPSIS
-.Nm dltest
+.Nm
 .Ar library
+.Op Ar ...
 .Sh DESCRIPTION
-Attempts to open the given
-.Ar library
-using
-.Xr dlopen 3 .
-If it fails, the message returned from
-.Xr dlerror 3
-is printed to standard error.
+Attempt to open the given libraries using
+.Xr dlopen_preflight 3 if available ,
+or
+.Xr dlopen 3
+otherwise.
+.Pp
+Names of successfully loaded libraries are printed to standard output,
+loading errors to standard error,
+and success is returned if
+.Em any
+of the loads was successful.
+.Pp
+Options:
+.Pp
+.Bl -tag -width Ds
+.It Fl a
+Only return success if
+.Em all
+of the given libraries could be loaded.
+.It Fl q
+Don't print loaded libraries or errors.
+.El
 .Pp
 Especially useful on macOS 11 and up
 which doesn't include regular shared library files
 but only a precompiled shared library cache.
 .Sh EXIT STATUS
-Exits 0 on success,
-1 if the library failed to open,
-or 64 on bad usage.
+Exits 0 on success or 1 on failure (see description),
+or 64 for bad usage.
+.Sh EXAMPLES
+See if some libraries are available:
+.Bd -literal -offset indent
+$ dltest libcurses.dylib libtermcap.dylib libterminfo.dylib
+libcurses.dylib
+libtermcap.dylib
+dlopen_preflight(libterminfo.dylib): image not found
+.Ed
+.Pp
+To see if we have
+.Em all
+of them using
+.Fl a :
+.Bd -literal -offset indent
+$ dltest -aq libcurses.dylib libtermcap.dylib libterminfo.dylib \\
+    && echo YES || echo NO
+NO
+.Ed
 .Sh SEE ALSO
 .Xr dlopen 3
 .Sh AUTHORS
