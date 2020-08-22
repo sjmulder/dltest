@@ -2,12 +2,6 @@
 #include <getopt.h>
 #include <dlfcn.h>
 
-#ifdef RTLD_NOLOAD
-# define DLFLAGS	(RTLD_LAZY | RTLD_NOLOAD)
-#else
-# define DLFLAGS	(RTLD_LAZY)
-#endif
-
 #ifdef __APPLE__
 # include <AvailabilityMacros.h>
 # if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
@@ -44,7 +38,9 @@ main(int argc, char **argv)
 #ifdef HAVE_PREFLIGHT
 		ok = dlopen_preflight(*argv);
 #else
-		if (!(ok = !!(dl = dlopen(*argv, DLFLAGS))))
+		dl = dlopen(*argv, RTLD_LAZY);
+		ok = dl != NULL;
+		if (ok)
 			dlclose(dl);
 #endif
 		if (ok)
