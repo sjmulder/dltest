@@ -11,11 +11,11 @@ clean:
 	rm -f dltest
 
 check: all
-	./dltest libm.so libm.dylib
-	./dltest libm.so libm.dylib 2>/dev/null | grep -q libm
-	./dltest libm.so libm.dylib 2>&1 >/dev/null | grep -q libm
-	./dltest -q libm.so libm.dylib
-	! ./dltest -aq libm.so libm.dylib
+	./dltest libutil.so libutil.dylib
+	./dltest libutil.so libutil.dylib 2>/dev/null | grep -q libutil
+	./dltest libutil.so libutil.dylib 2>&1 >/dev/null | grep -q libutil
+	./dltest -q libutil.so libutil.dylib
+	! ./dltest -aq libutil.so libutil.dylib
 
 install: all
 	install -d ${DESTDIR}${PREFIX}/bin ${DESTDIR}${MANPREFIX}/man1
