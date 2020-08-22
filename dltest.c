@@ -45,10 +45,9 @@ main(int argc, char **argv)
 #endif
 		if (ok)
 			num_ok++;
-
 		if (ok && !opt_quiet)
 			puts(*argv);
-		else if (!ok && !opt_quiet)
+		if (!ok && !opt_quiet)
 			fprintf(stderr, "%s\n", dlerror());
 
 	}
