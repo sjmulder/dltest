@@ -44,7 +44,7 @@ main(int argc, char **argv)
 #ifdef HAVE_PREFLIGHT
 		ok = dlopen_preflight(*argv);
 #else
-		if (!(ok = dl = dlopen(*argv, DLFLAGS)))
+		if (!(ok = !!(dl = dlopen(*argv, DLFLAGS))))
 			dlclose(dl);
 #endif
 		if (ok)
